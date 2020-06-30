@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 class Direccion(models.Model):
     id = models.AutoField(primary_key=True)
     Calle = models.CharField(max_length=50)
@@ -15,6 +16,7 @@ class Direccion(models.Model):
         verbose_name = "Direccion"
         verbose_name_plural = "Direcciones"
 
+
 class Proveedor(models.Model):
     RUT = models.PositiveIntegerField(primary_key=True)
     Nombre = models.CharField(max_length=15)
@@ -28,3 +30,17 @@ class Proveedor(models.Model):
     class Meta:
         verbose_name = "Proveedor"
         verbose_name_plural = "Proveedores"
+
+
+class Cliente(models.Model):
+    RUT = models.PositiveIntegerField(primary_key=True)
+    Nombre = models.CharField(max_length=15)
+    Direccion = models.ForeignKey('Direccion', on_delete = models.CASCADE,)
+    #Telefono = models.BigIntegerField() / Hay que usar ARRAY
+    
+    def __str__(self):
+        return ("RUT: {} | {}".format(self.RUT, self.Nombre))
+        
+    class Meta:
+        verbose_name = "Cliente"
+        verbose_name_plural = "Clientes"
