@@ -36,7 +36,7 @@ class Cliente(models.Model):
     RUT = models.PositiveIntegerField(primary_key=True)
     Nombre = models.CharField(max_length=15)
     Direccion = models.ForeignKey('Direccion', on_delete = models.CASCADE,)
-    #Telefono = models.BigIntegerField() / Hay que usar ARRAY
+    Telefono = models.BigIntegerField() # Hay que usar ARRAY
     
     def __str__(self):
         return ("RUT: {} | {}".format(self.RUT, self.Nombre))
@@ -64,6 +64,9 @@ class Producto(models.Model):
     Nombre = models.CharField(max_length=15)
     Precio = models.PositiveIntegerField()
     Stock = models.IntegerField()
+    Proveedor = models.ForeignKey('Proveedor', on_delete = models.CASCADE, default = None,)
+    Categoria = models.ForeignKey('Categoria', on_delete = models.CASCADE, default = None,)
+    Venta = models.ForeignKey('Venta', on_delete = models.CASCADE, default = None,)
     
     def __str__(self):
         return ("ID: {} | {}".format(self.ID, self.Nombre))
@@ -78,6 +81,9 @@ class Venta(models.Model):
     Fecha = models.DateField()
     Monto_Final = models.IntegerField()
     Descuento = models.IntegerField()
+    Cliente = models.ForeignKey('Cliente', on_delete = models.CASCADE, default = None,)
+    
+    Cantidad = models.IntegerField()
     
     def __str__(self):
         return ("ID: {} | {}".format(self.ID, self.Nombre))
