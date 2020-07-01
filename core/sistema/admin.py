@@ -4,13 +4,15 @@ from sistema.models import *
 class ProveedorAdmin(admin.ModelAdmin):
     class EntryInLines(admin.TabularInline):
         model = Producto
-    inlines = [EntryInLines,]
+    inlines = [EntryInLines,] 
+    list_filter = ['RUT', 'Nombre',]
     
 class ClienteAdmin(admin.ModelAdmin):
     class EntryInLines(admin.TabularInline):
         model = Venta
     inlines = [EntryInLines,]
     list_display = ['RUT', 'Nombre', 'Telefono']
+    search_fields = ('Nombre',)
     
 class CategoriaAdmin(admin.ModelAdmin):
     class EntryInLines(admin.TabularInline):
@@ -21,8 +23,9 @@ class VentaAdmin(admin.ModelAdmin):
     class EntryInLines(admin.TabularInline):
         model = Producto
     inlines = [EntryInLines,]
+    list_display = ['ID', 'DescuentoAplicado']
     
-class ProductoAdmin(admin.ModelAdmin):
+class ProductoAdmin(admin.ModelAdmin):    
     fieldsets = (
         ('Descripcion', {
             'fields': ('ID', 'Nombre')
@@ -31,6 +34,7 @@ class ProductoAdmin(admin.ModelAdmin):
             'fields': ('Precio', 'Stock',)
         }),
     )
+    
 
 # Register your models here.
 

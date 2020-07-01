@@ -80,13 +80,18 @@ class Venta(models.Model):
     ID = models.PositiveIntegerField(primary_key=True)
     Fecha = models.DateField()
     Monto_Final = models.IntegerField()
-    Descuento = models.IntegerField()
+    Descuento = models.BooleanField()
     Cliente = models.ForeignKey('Cliente', on_delete = models.CASCADE, default = None,)
-    
     Cantidad = models.IntegerField()
     
+    def DescuentoAplicado(self):
+        # Devuelve si es mayor o menor de edad
+        return (self.Descuento)
+    DescuentoAplicado.boolean = True
+    DescuentoAplicado.short_description = 'Descuento'
+    
     def __str__(self):
-        return ("ID: {} | {}".format(self.ID, self.Nombre))
+        return ("ID: {}".format(self.ID))
         
     class Meta:
         verbose_name = "Venta"
